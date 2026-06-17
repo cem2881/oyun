@@ -4,310 +4,408 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>Berat & Ali Parkur</title>
+<title>Berat & Ali Parkur Oyunu</title>
 
 <style>
 
-body{
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
 font-family:Arial,sans-serif;
+}
+
+body{
+overflow:hidden;
+background:#67c5ff;
+touch-action:none;
+}
+
+#gameContainer{
+width:100vw;
+height:100vh;
+position:relative;
 overflow:hidden;
 }
 
 #menu{
-height:100vh;
-background:#4bb7ff;
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
 gap:20px;
+background:linear-gradient(180deg,#5ac8ff,#2d79ff);
+z-index:100;
 }
 
-#menu button{
-padding:15px 25px;
-font-size:20px;
-border:none;
-border-radius:15px;
+#menu h1{
+font-size:40px;
+color:white;
 }
 
-#oyun{
-display:none;
-position:relative;
-height:100vh;
-background:#87ceeb;
-overflow:hidden;
-}
-
-#ust{
+.characterBox{
 display:flex;
-justify-content:space-between;
-padding:15px;
-font-size:24px;
-font-weight:bold;
+gap:20px;
 }
 
-#zemin{
+.character{
+width:120px;
+height:150px;
+background:white;
+border-radius:20px;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+font-size:30px;
+cursor:pointer;
+}
+
+.character.selected{
+border:6px solid gold;
+}
+
+button{
+border:none;
+padding:15px 30px;
+font-size:18px;
+border-radius:15px;
+cursor:pointer;
+}
+
+#hud{
 position:absolute;
-bottom:0;
-height:100px;
-width:100%;
-background:green;
+top:10px;
+left:10px;
+z-index:10;
+display:none;
+gap:15px;
+flex-wrap:wrap;
 }
 
-#karakter{
+.hudBox{
+background:rgba(255,255,255,.85);
+padding:10px 15px;
+border-radius:15px;
+font-size:18px;
+}
+
+#nightBtn{
 position:absolute;
-left:70px;
-bottom:100px;
-font-size:70px;
-z-index:5;
+top:10px;
+right:10px;
+z-index:10;
+display:none;
 }
 
-#engel{
-position:absolute;
-right:-100px;
-bottom:100px;
-width:60px;
-height:120px;
-background:red;
-border-radius:10px;
-}
-
-#zipla{
+#restartBtn{
 position:absolute;
 bottom:20px;
 right:20px;
-padding:18px;
-font-size:20px;
-border:none;
-border-radius:15px;
+z-index:10;
+display:none;
 }
 
-#bitis{
+#game{
+width:100%;
+height:100%;
+position:relative;
+overflow:hidden;
+}
+
+#sky{
+position:absolute;
+width:100%;
+height:100%;
+background:#7ed8ff;
+transition:.4s;
+}
+
+#player{
+width:70px;
+height:90px;
+position:absolute;
+bottom:110px;
+left:80px;
+border-radius:20px;
 display:none;
-height:100vh;
-background:#4bb7ff;
-flex-direction:column;
 justify-content:center;
 align-items:center;
-gap:20px;
+font-size:45px;
+z-index:5;
 }
 
-#bitis button{
-padding:18px;
-font-size:20px;
+.ground{
+position:absolute;
+bottom:0;
+width:100%;
+height:100px;
+background:#3fb64f;
+}
+
+.obstacle{
+position:absolute;
+bottom:100px;
+width:50px;
+height:50px;
+font-size:45px;
+}
+
+.coin{
+position:absolute;
+bottom:200px;
+font-size:35px;
+}
+
+.tree{
+position:absolute;
+bottom:100px;
+font-size:70px;
+}
+
+.cloud{
+position:absolute;
+top:50px;
+font-size:60px;
+}
+
+#finish{
+position:absolute;
+bottom:100px;
+font-size:80px;
+display:none;
+}
+
+#controls{
+position:absolute;
+bottom:20px;
+left:20px;
+display:none;
+z-index:10;
+}
+
+#jumpBtn{
+width:90px;
+height:90px;
+border-radius:50%;
+font-size:30px;
+}
+
+.gameOver{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+background:white;
+padding:30px;
+border-radius:20px;
+display:none;
+z-index:20;
+text-align:center;
 }
 
 </style>
-
 </head>
 
 <body>
 
+<div id="gameContainer">
+
 <div id="menu">
 
-<h1>BERAT & ALİ PARKUR</h1>
+<h1>🏃 Parkur Oyunu</h1>
 
-<button onclick="karakterSec('😎')">
+<div class="characterBox">
 
-BERAT
+<div class="character" onclick="selectCharacter('😎')">
 
-</button>
+😎
 
-<button onclick="karakterSec('🧢')">
-
-ALİ
-
-</button>
-
-<div id="secili">
-
-Karakter seç
+<p>Berat</p>
 
 </div>
 
-<button onclick="oyunuBaslat()">
+<div class="character" onclick="selectCharacter('🧢')">
 
-OYUNA BAŞLA
+🧢
 
-</button>
-
-</div>
-
-<div id="oyun">
-
-<div id="ust">
-
-<div id="can">
-
-❤️❤️❤️
-
-</div>
-
-<div id="skor">
-
-0
-
-</div>
-
-<div id="rekor">
-
-0
+<p>Ali</p>
 
 </div>
 
 </div>
 
-<div id="karakter"></div>
+<button onclick="startGame()">
 
-<div id="engel"></div>
-
-<div id="zemin"></div>
-
-<button id="zipla">
-
-⬆️ Zıpla
+Başlat
 
 </button>
 
 </div>
 
-<div id="bitis">
+<div id="hud">
 
-<h1>
+<div class="hudBox" id="life">❤️❤️❤️</div>
 
-OYUN BİTTİ
+<div class="hudBox" id="score">🏁 0</div>
 
-</h1>
+<div class="hudBox" id="coinCount">🪙 0</div>
 
-<div id="sonSkor"></div>
+</div>
+
+<button id="nightBtn" onclick="toggleNight()">
+
+🌙
+
+</button>
+
+<button id="restartBtn" onclick="location.reload()">
+
+🔄
+
+</button>
+
+<div id="game">
+
+<div id="sky"></div>
+
+<div class="ground"></div>
+
+<div id="player"></div>
+
+<div id="finish">🏁</div>
+
+</div>
+
+<div id="controls">
+
+<button id="jumpBtn">
+
+⬆️
+
+</button>
+
+</div>
+
+<div class="gameOver" id="gameOver">
+
+<h2>Bitti</h2>
+
+<p id="finalScore"></p>
 
 <button onclick="location.reload()">
 
-🔄 Yeniden Başlat
+Tekrar Oyna
 
 </button>
+
+</div>
 
 </div>
 
 <script>
 
-let secilen="";
-let skor=0;
-let rekor=0;
-let can=3;
-let zipliyor=false;
-let oyun=null;
+let selectedCharacter="";
 
-function karakterSec(k){
+let player=document.getElementById("player");
 
-secilen=k;
+let game=document.getElementById("game");
 
-document.getElementById("secili").innerText="Seçildi";
+let score=0;
+
+let coins=0;
+
+let lives=3;
+
+let gameRunning=false;
+
+let jumping=false;
+
+let position=110;
+
+let night=false;
+
+let speed=6;
+
+function selectCharacter(icon){
+
+selectedCharacter=icon;
+
+document.querySelectorAll(".character")
+.forEach(c=>c.classList.remove("selected"));
+
+event.currentTarget.classList.add("selected");
 
 }
 
-function oyunuBaslat(){
+function startGame(){
 
-if(secilen===""){
-
-alert("Karakter seç");
-
-return;
-
-}
-
-document.getElementById("karakter").innerHTML=secilen;
+if(selectedCharacter=="") return;
 
 document.getElementById("menu").style.display="none";
 
-document.getElementById("oyun").style.display="block";
+document.getElementById("hud").style.display="flex";
 
-if(oyun){
+document.getElementById("nightBtn").style.display="block";
 
-clearInterval(oyun);
+document.getElementById("restartBtn").style.display="block";
 
-}
+document.getElementById("controls").style.display="block";
 
-oyunuCalistir();
+player.style.display="flex";
 
-}
+player.innerHTML=selectedCharacter;
 
-function oyunuCalistir(){
+gameRunning=true;
 
-let engel=document.getElementById("engel");
+spawnLoop();
 
-let karakter=document.getElementById("karakter");
-
-let konum=-100;
-
-oyun=setInterval(()=>{
-
-konum+=8;
-
-engel.style.right=konum+"px";
-
-if(konum>window.innerWidth){
-
-konum=-100;
-
-skor++;
-
-document.getElementById("skor").innerText=skor;
-
-if(skor>rekor){
-
-rekor=skor;
-
-document.getElementById("rekor").innerText=rekor;
+gameLoop();
 
 }
 
-}
+function jump(){
 
-let karakterAlt=parseInt(karakter.style.bottom)||100;
+if(jumping) return;
 
-let engelX=window.innerWidth-konum;
+jumping=true;
 
-if(
+let audio=new Audio(
+'data:audio/wav;base64,UklGRjQAAABXQVZFZm10'
+);
 
-engelX<140 &&
+audio.play();
 
-engelX>50 &&
+let up=setInterval(()=>{
 
-karakterAlt<180
+position+=10;
 
-){
+player.style.bottom=position+"px";
 
-can--;
+if(position>=250){
 
-konum=-100;
+clearInterval(up);
 
-if(can===2){
+let down=setInterval(()=>{
 
-document.getElementById("can").innerText="❤️❤️";
+position-=10;
 
-}
+player.style.bottom=position+"px";
 
-if(can===1){
+if(position<=110){
 
-document.getElementById("can").innerText="❤️";
+position=110;
 
-}
+jumping=false;
 
-if(can===0){
-
-clearInterval(oyun);
-
-document.getElementById("oyun").style.display="none";
-
-document.getElementById("bitis").style.display="flex";
-
-document.getElementById("sonSkor").innerText="Skor: "+skor;
-
-}
+clearInterval(down);
 
 }
 
@@ -315,29 +413,375 @@ document.getElementById("sonSkor").innerText="Skor: "+skor;
 
 }
 
-document.getElementById("zipla").onclick=function(){
+},20);
 
-if(zipliyor){
+}
+
+document.getElementById("jumpBtn")
+.addEventListener("click",jump);
+
+document.addEventListener("keydown",e=>{
+
+if(e.code=="Space") jump();
+
+});
+
+function toggleNight(){
+
+night=!night;
+
+document.getElementById("sky")
+.style.background=
+
+night
+
+?
+
+"#101820"
+
+:
+
+"#7ed8ff";
+
+}
+function updateHud(){
+
+document.getElementById("score")
+.innerHTML="🏁 "+score;
+
+document.getElementById("coinCount")
+.innerHTML="🪙 "+coins;
+
+let hearts="";
+
+for(let i=0;i<lives;i++){
+
+hearts+="❤️";
+
+}
+
+document.getElementById("life")
+.innerHTML=hearts;
+
+}
+
+function loseLife(){
+
+if(!gameRunning) return;
+
+lives--;
+
+updateHud();
+
+if(lives<=0){
+
+gameOver();
+
+}
+
+}
+
+function gameOver(){
+
+gameRunning=false;
+
+document.getElementById("gameOver")
+.style.display="block";
+
+document.getElementById("finalScore")
+.innerHTML=
+
+"Skor: "+score+
+
+"<br>Coin: "+coins;
+
+}
+
+function gameWin(){
+
+gameRunning=false;
+
+document.getElementById("gameOver")
+.style.display="block";
+
+document.getElementById("finalScore")
+.innerHTML=
+
+"🎉 Kazandın"
+
++"<br>Coin: "+coins;
+
+}
+
+function spawnObstacle(){
+
+if(!gameRunning) return;
+
+let rock=document.createElement("div");
+
+rock.className="obstacle";
+
+rock.innerHTML="🪨";
+
+rock.style.left="100vw";
+
+game.appendChild(rock);
+
+moveObject(rock,true);
+
+}
+
+function spawnCoin(){
+
+if(!gameRunning) return;
+
+let coin=document.createElement("div");
+
+coin.className="coin";
+
+coin.innerHTML="🪙";
+
+coin.style.left="100vw";
+
+coin.style.bottom=
+
+(150+Math.random()*150)
+
++"px";
+
+game.appendChild(coin);
+
+moveObject(coin,false);
+
+}
+
+function spawnTree(){
+
+if(!gameRunning) return;
+
+let tree=document.createElement("div");
+
+tree.className="tree";
+
+tree.innerHTML="🌳";
+
+tree.style.left="100vw";
+
+game.appendChild(tree);
+
+moveDecoration(tree);
+
+}
+
+function spawnCloud(){
+
+if(!gameRunning) return;
+
+let cloud=document.createElement("div");
+
+cloud.className="cloud";
+
+cloud.innerHTML="☁️";
+
+cloud.style.left="100vw";
+
+cloud.style.top=
+
+(20+Math.random()*120)
+
++"px";
+
+game.appendChild(cloud);
+
+moveDecoration(cloud);
+
+}
+
+function moveDecoration(el){
+
+let left=window.innerWidth;
+
+let move=setInterval(()=>{
+
+if(!gameRunning){
+
+clearInterval(move);
 
 return;
 
 }
 
-zipliyor=true;
+left-=2;
 
-let karakter=document.getElementById("karakter");
+el.style.left=left+"px";
 
-karakter.style.bottom="260px";
+if(left<-150){
 
-setTimeout(()=>{
+el.remove();
 
-karakter.style.bottom="100px";
-
-zipliyor=false;
-
-},500);
+clearInterval(move);
 
 }
+
+},20);
+
+}
+
+function moveObject(el,isObstacle){
+
+let left=window.innerWidth;
+
+let move=setInterval(()=>{
+
+if(!gameRunning){
+
+clearInterval(move);
+
+return;
+
+}
+
+left-=speed;
+
+el.style.left=left+"px";
+
+let playerRect=
+
+player.getBoundingClientRect();
+
+let objRect=
+
+el.getBoundingClientRect();
+
+if(
+
+playerRect.left<objRect.right &&
+
+playerRect.right>objRect.left &&
+
+playerRect.top<objRect.bottom &&
+
+playerRect.bottom>objRect.top
+
+){
+
+if(isObstacle){
+
+loseLife();
+
+el.remove();
+
+clearInterval(move);
+
+return;
+
+}
+
+else{
+
+coins++;
+
+el.remove();
+
+clearInterval(move);
+
+updateHud();
+
+return;
+
+}
+
+}
+
+if(left<-100){
+
+el.remove();
+
+clearInterval(move);
+
+}
+
+},20);
+
+}
+
+function spawnLoop(){
+
+setInterval(()=>{
+
+if(!gameRunning) return;
+
+spawnObstacle();
+
+},1800);
+
+setInterval(()=>{
+
+if(!gameRunning) return;
+
+spawnCoin();
+
+},1400);
+
+setInterval(()=>{
+
+if(!gameRunning) return;
+
+spawnTree();
+
+},2500);
+
+setInterval(()=>{
+
+if(!gameRunning) return;
+
+spawnCloud();
+
+},3500);
+
+}
+
+function gameLoop(){
+
+let loop=setInterval(()=>{
+
+if(!gameRunning){
+
+clearInterval(loop);
+
+return;
+
+}
+
+score++;
+
+updateHud();
+
+if(score>=100){
+
+let finish=
+
+document.getElementById("finish");
+
+finish.style.display="block";
+
+finish.style.left="80%";
+
+gameWin();
+
+}
+
+if(score%20==0){
+
+speed+=0.4;
+
+}
+
+},300);
+
+}
+
+updateHud();
 
 </script>
 
