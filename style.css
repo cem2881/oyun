@@ -22,19 +22,12 @@ display:flex;
 gap:20px;
 }
 
-.secim button{
-padding:20px;
-font-size:25px;
-border:none;
-border-radius:15px;
-}
-
+.secim button,
 #basla{
-margin-top:30px;
 padding:20px;
 font-size:25px;
 border:none;
-border-radius:15px;
+border-radius:20px;
 }
 
 #oyun{
@@ -58,8 +51,8 @@ bottom:0;
 width:80px;
 height:120px;
 position:absolute;
-bottom:100px;
 left:70px;
+bottom:100px;
 font-size:70px;
 display:flex;
 justify-content:center;
@@ -72,22 +65,29 @@ width:50px;
 height:120px;
 background:red;
 position:absolute;
-bottom:100px;
 right:-100px;
+bottom:100px;
 }
 
 #skor{
 position:absolute;
 top:20px;
 left:20px;
-font-size:30px;
+font-size:35px;
 font-weight:bold;
+}
+
+#can{
+position:absolute;
+top:20px;
+right:20px;
+font-size:35px;
 }
 
 #ziplaBtn{
 position:absolute;
-bottom:30px;
 right:30px;
+bottom:30px;
 padding:20px;
 font-size:20px;
 border:none;
