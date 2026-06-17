@@ -67,3 +67,26 @@ skor++;
 document.getElementById("skor").innerText=skor;
 
 },1000);
+let engel=document.getElementById("engel");
+
+setInterval(()=>{
+
+let konum=window.innerWidth;
+
+engel.style.right=konum+"px";
+
+let hareket=setInterval(()=>{
+
+konum-=5;
+
+engel.style.right=konum+"px";
+
+if(konum<-100){
+
+konum=window.innerWidth;
+
+}
+
+},20);
+
+},3000);
