@@ -1,11 +1,12 @@
 <!DOCTYPE html>
+
 <html lang="tr">
 
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Berat & Ali Parkur</title>
 
@@ -15,23 +16,23 @@
 
 <body>
 
-<h1>Karakter Seç</h1>
+<div id="menu">
 
-<div class="secim">
+<h1>BERAT & ALİ PARKUR</h1>
+
+<h2>Karakter Seç</h2>
+
+<div class="karakterler">
 
 <div class="kart" onclick="karakterSec('berat')">
 
-<img src="images/berat.png">
-
-<h2>Berat</h2>
+<h3>BERAT</h3>
 
 </div>
 
 <div class="kart" onclick="karakterSec('ali')">
 
-<img src="images/ali.png">
-
-<h2>Ali</h2>
+<h3>ALİ</h3>
 
 </div>
 
@@ -39,15 +40,27 @@
 
 <button onclick="oyunuBaslat()">
 
-Başla
+OYUNA BAŞLA
 
 </button>
 
+</div>
+
 <div id="oyun">
+
+<div id="skor">
+
+0
+
+</div>
 
 <div id="karakter"></div>
 
-<div class="engel"></div>
+<div id="engel"></div>
+
+<div id="para"></div>
+
+<div id="portal"></div>
 
 </div>
 
