@@ -1,20 +1,21 @@
-let secilenKarakter = "";
-let zipliyor = false;
-let skor = 0;
+let secilen="";
+let zipliyor=false;
+let skor=0;
+let engelHareket;
 
 function karakterSec(isim){
 
-secilenKarakter = isim;
+secilen=isim;
 
-alert(isim.toUpperCase()+" seçildi");
+document.getElementById("yazi").innerText=isim+" seçildi";
 
 }
 
 function oyunuBaslat(){
 
-if(secilenKarakter==""){
+if(secilen==""){
 
-alert("Önce karakter seç");
+alert("Karakter seç");
 
 return;
 
@@ -24,19 +25,37 @@ document.getElementById("menu").style.display="none";
 
 document.getElementById("oyun").style.display="block";
 
-}
-
-document.addEventListener("keydown",function(e){
-
-if(e.code==="Space"){
-
-zipla();
+oyunuCalistir();
 
 }
 
-});
+function oyunuCalistir(){
 
-function zipla(){
+let engel=document.getElementById("engel");
+
+let konum=-100;
+
+engelHareket=setInterval(()=>{
+
+konum+=8;
+
+engel.style.right=konum+"px";
+
+if(konum>window.innerWidth){
+
+konum=-100;
+
+skor++;
+
+document.getElementById("skor").innerText=skor;
+
+}
+
+},20);
+
+}
+
+document.getElementById("ziplaBtn").onclick=function(){
 
 if(zipliyor){
 
@@ -48,39 +67,14 @@ zipliyor=true;
 
 let karakter=document.getElementById("karakter");
 
-karakter.style.bottom="180px";
+karakter.style.bottom="260px";
 
-setTimeout(function(){
+setTimeout(()=>{
 
-karakter.style.bottom="0px";
+karakter.style.bottom="100px";
 
 zipliyor=false;
 
 },500);
 
 }
-
-setInterval(function(){
-
-skor++;
-
-document.getElementById("skor").innerText=skor;
-
-},1000);
-let engel = document.getElementById("engel");
-
-let konum = -100;
-
-setInterval(()=>{
-
-konum+=5;
-
-engel.style.right=konum+"px";
-
-if(konum>window.innerWidth){
-
-konum=-100;
-
-}
-
-},20);
