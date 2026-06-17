@@ -1,47 +1,69 @@
-let secilen="";
+let secilenKarakter = "";
+let zipliyor = false;
+let skor = 0;
 
 function karakterSec(isim){
 
-secilen=isim;
+secilenKarakter = isim;
+
+alert(isim.toUpperCase()+" seçildi");
 
 }
 
 function oyunuBaslat(){
 
-if(secilen==""){
+if(secilenKarakter==""){
 
-alert("Karakter seç");
+alert("Önce karakter seç");
 
 return;
 
 }
 
+document.getElementById("menu").style.display="none";
+
 document.getElementById("oyun").style.display="block";
-
-let karakter=document.getElementById("karakter");
-
-karakter.style.backgroundImage=
-
-`url(images/${secilen}.png)`;
 
 }
 
-document.addEventListener("keydown",(e)=>{
+document.addEventListener("keydown",function(e){
 
-let karakter=
+if(e.code==="Space"){
 
-document.getElementById("karakter");
+zipla();
 
-if(e.code=="Space"){
+}
 
-karakter.style.bottom="150px";
+});
 
-setTimeout(()=>{
+function zipla(){
+
+if(zipliyor){
+
+return;
+
+}
+
+zipliyor=true;
+
+let karakter=document.getElementById("karakter");
+
+karakter.style.bottom="180px";
+
+setTimeout(function(){
 
 karakter.style.bottom="0px";
+
+zipliyor=false;
 
 },500);
 
 }
 
-});
+setInterval(function(){
+
+skor++;
+
+document.getElementById("skor").innerText=skor;
+
+},1000);
