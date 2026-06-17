@@ -1,15 +1,98 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 
 <title>Berat & Ali Parkur</title>
 
-<link rel="stylesheet" href="style.css">
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+font-family:Arial;
+}
+
+#menu{
+height:100vh;
+background:#4bb7ff;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:20px;
+}
+
+#menu button{
+padding:18px;
+font-size:22px;
+border:none;
+border-radius:15px;
+}
+
+#oyun{
+display:none;
+position:relative;
+height:100vh;
+background:#87ceeb;
+}
+
+#ust{
+display:flex;
+justify-content:space-between;
+padding:15px;
+font-size:24px;
+font-weight:bold;
+}
+
+#zemin{
+position:absolute;
+bottom:0;
+height:100px;
+width:100%;
+background:green;
+}
+
+#karakter{
+position:absolute;
+left:70px;
+bottom:100px;
+font-size:70px;
+z-index:2;
+}
+
+#engel{
+position:absolute;
+bottom:100px;
+right:-100px;
+width:60px;
+height:120px;
+background:red;
+border-radius:10px;
+}
+
+#zipla{
+position:absolute;
+bottom:20px;
+right:20px;
+padding:20px;
+font-size:20px;
+}
+
+#bitis{
+display:none;
+height:100vh;
+background:#4bb7ff;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+gap:20px;
+}
+
+</style>
 
 </head>
 
@@ -19,33 +102,11 @@
 
 <h1>BERAT & ALİ PARKUR</h1>
 
-<div class="secim">
+<button onclick="sec('😎')">BERAT</button>
 
-<button onclick="karakterSec('Berat')">
+<button onclick="sec('🧢')">ALİ</button>
 
-😎 BERAT
-
-</button>
-
-<button onclick="karakterSec('Ali')">
-
-🧢 ALİ
-
-</button>
-
-</div>
-
-<h2 id="yazi">
-
-Karakter seç
-
-</h2>
-
-<button onclick="oyunuBaslat()">
-
-OYUNA BAŞLA
-
-</button>
+<button onclick="baslat()">OYUNA BAŞLA</button>
 
 </div>
 
@@ -55,9 +116,9 @@ OYUNA BAŞLA
 
 <div id="can">❤️❤️❤️</div>
 
-<div id="rekor">REKOR:0</div>
-
 <div id="skor">0</div>
+
+<div id="rekor">0</div>
 
 </div>
 
@@ -67,15 +128,9 @@ OYUNA BAŞLA
 
 <div id="zemin"></div>
 
-<button id="ziplaBtn">
+<button id="zipla">
 
-⬆️ Zıpla
-
-</button>
-
-<button id="menuBtn">
-
-🏠 Menü
+⬆️
 
 </button>
 
@@ -85,9 +140,7 @@ OYUNA BAŞLA
 
 <h1>OYUN BİTTİ</h1>
 
-<h2 id="sonSkor"></h2>
-
-<button onclick="yenidenBaslat()">
+<button onclick="location.reload()">
 
 🔄 Yeniden Başlat
 
@@ -95,8 +148,149 @@ OYUNA BAŞLA
 
 </div>
 
-<script src="script.js"></script>
+<script>
+
+let secilen="";
+
+let skor=0;
+
+let rekor=0;
+
+let can=3;
+
+let zipliyor=false;
+
+let oyun;
+
+function sec(k){
+
+secilen=k;
+
+}
+
+function baslat(){
+
+if(secilen==""){
+
+alert("Karakter seç");
+
+return;
+
+}
+
+document.getElementById("karakter").innerHTML=secilen;
+
+document.getElementById("menu").style.display="none";
+
+document.getElementById("oyun").style.display="block";
+
+oyunuCalistir();
+
+}
+
+function oyunuCalistir(){
+
+let engel=document.getElementById("engel");
+
+let karakter=document.getElementById("karakter");
+
+let konum=-100;
+
+oyun=setInterval(()=>{
+
+konum+=10;
+
+engel.style.right=konum+"px";
+
+if(konum>window.innerWidth){
+
+konum=-100;
+
+skor++;
+
+document.getElementById("skor").innerText=skor;
+
+if(skor>rekor){
+
+rekor=skor;
+
+document.getElementById("rekor").innerText=rekor;
+
+}
+
+}
+
+let karakterAlt=parseInt(karakter.style.bottom)||100;
+
+let engelX=window.innerWidth-konum;
+
+if(
+
+engelX<150 &&
+
+engelX>60 &&
+
+karakterAlt<180
+
+){
+
+can--;
+
+konum=-100;
+
+if(can==2){
+
+document.getElementById("can").innerText="❤️❤️";
+
+}
+
+if(can==1){
+
+document.getElementById("can").innerText="❤️";
+
+}
+
+if(can==0){
+
+clearInterval(oyun);
+
+document.getElementById("oyun").style.display="none";
+
+document.getElementById("bitis").style.display="flex";
+
+}
+
+}
+
+},20);
+
+}
+
+document.getElementById("zipla").onclick=function(){
+
+if(zipliyor){
+
+return;
+
+}
+
+zipliyor=true;
+
+let karakter=document.getElementById("karakter");
+
+karakter.style.bottom="260px";
+
+setTimeout(()=>{
+
+karakter.style.bottom="100px";
+
+zipliyor=false;
+
+},500);
+
+}
+
+</script>
 
 </body>
-
 </html>
