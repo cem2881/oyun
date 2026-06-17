@@ -19,17 +19,13 @@
 
 <h1>BERAT & ALİ PARKUR</h1>
 
-<div class="secim">
+<button onclick="karakterSec('Berat')">😎 BERAT</button>
 
-<button onclick="karakterSec('Berat')">BERAT</button>
-
-<button onclick="karakterSec('Ali')">ALİ</button>
-
-</div>
+<button onclick="karakterSec('Ali')">🧢 ALİ</button>
 
 <h2 id="yazi">Karakter seç</h2>
 
-<button id="basla" onclick="oyunuBaslat()">
+<button onclick="oyunuBaslat()">
 
 OYUNA BAŞLA
 
@@ -39,9 +35,15 @@ OYUNA BAŞLA
 
 <div id="oyun">
 
+<div id="ustBilgi">
+
 <div id="can">❤️❤️❤️</div>
 
+<div id="rekor">REKOR:0</div>
+
 <div id="skor">0</div>
+
+</div>
 
 <div id="karakter"></div>
 
@@ -52,6 +54,26 @@ OYUNA BAŞLA
 <button id="ziplaBtn">
 
 ⬆️ Zıpla
+
+</button>
+
+<button id="menuBtn">
+
+🏠 Menü
+
+</button>
+
+</div>
+
+<div id="bitis">
+
+<h1>OYUN BİTTİ</h1>
+
+<h2 id="sonSkor"></h2>
+
+<button onclick="yenidenBaslat()">
+
+🔄 Yeniden Başlat
 
 </button>
 
