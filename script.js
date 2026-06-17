@@ -4,9 +4,9 @@ let zipliyor=false;
 
 let skor=0;
 
-let can=3;
-
 let rekor=0;
+
+let can=3;
 
 let oyun;
 
@@ -15,18 +15,6 @@ function karakterSec(isim){
 secilen=isim;
 
 document.getElementById("yazi").innerText=isim+" seçildi";
-
-if(isim==="Berat"){
-
-document.getElementById("karakter").innerHTML="😎";
-
-}
-
-if(isim==="Ali"){
-
-document.getElementById("karakter").innerHTML="🧢";
-
-}
 
 }
 
@@ -37,6 +25,18 @@ if(secilen===""){
 alert("Karakter seç");
 
 return;
+
+}
+
+if(secilen==="Berat"){
+
+document.getElementById("karakter").innerHTML="😎";
+
+}
+
+if(secilen==="Ali"){
+
+document.getElementById("karakter").innerHTML="🧢";
 
 }
 
@@ -58,7 +58,7 @@ let konum=-100;
 
 oyun=setInterval(()=>{
 
-konum+=8;
+konum+=10;
 
 engel.style.right=konum+"px";
 
@@ -80,21 +80,23 @@ document.getElementById("rekor").innerText="REKOR:"+rekor;
 
 }
 
-let engelSol=window.innerWidth-konum;
-
 let karakterAlt=parseInt(karakter.style.bottom)||100;
+
+let engelX=window.innerWidth-konum;
 
 if(
 
-engelSol<150 &&
+engelX<150 &&
 
-engelSol>50 &&
+engelX>50 &&
 
 karakterAlt<180
 
 ){
 
 can--;
+
+konum=-100;
 
 if(can===2){
 
@@ -116,11 +118,9 @@ document.getElementById("oyun").style.display="none";
 
 document.getElementById("bitis").style.display="flex";
 
-document.getElementById("sonSkor").innerText="Skor:"+skor;
+document.getElementById("sonSkor").innerText="Skor: "+skor;
 
 }
-
-konum=-100;
 
 }
 
