@@ -1,14 +1,36 @@
 body{
 
-background:#87ceeb;
-
-text-align:center;
+margin:0;
 
 font-family:Arial;
 
+background:#3ca6ff;
+
+overflow:hidden;
+
+text-align:center;
+
 }
 
-.secim{
+#menu{
+
+padding-top:40px;
+
+}
+
+h1{
+
+color:white;
+
+}
+
+h2{
+
+color:white;
+
+}
+
+.karakterler{
 
 display:flex;
 
@@ -16,23 +38,43 @@ justify-content:center;
 
 gap:30px;
 
+margin:30px;
+
 }
 
 .kart{
+
+width:150px;
+
+height:200px;
+
+background:white;
+
+border-radius:20px;
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+font-size:30px;
 
 cursor:pointer;
 
 }
 
-.kart img{
+button{
 
-width:180px;
+padding:15px 30px;
 
-height:220px;
+font-size:20px;
 
-object-fit:cover;
+border:none;
 
-border-radius:20px;
+border-radius:15px;
+
+cursor:pointer;
 
 }
 
@@ -40,15 +82,13 @@ border-radius:20px;
 
 display:none;
 
-width:900px;
-
-height:400px;
-
-background:green;
-
-margin:auto;
-
 position:relative;
+
+width:100vw;
+
+height:100vh;
+
+background:linear-gradient(#5bbcff,#9be7ff);
 
 overflow:hidden;
 
@@ -60,46 +100,78 @@ width:80px;
 
 height:120px;
 
-position:absolute;
+background:orange;
 
-bottom:0;
+position:absolute;
 
 left:100px;
 
-background-size:cover;
+bottom:0;
+
+border-radius:15px;
 
 }
 
-.engel{
+#engel{
 
-width:40px;
+width:50px;
 
-height:70px;
+height:100px;
 
 background:red;
 
 position:absolute;
 
+right:300px;
+
 bottom:0;
 
-right:-40px;
+}
 
-animation:engel 2s infinite linear;
+#para{
+
+width:40px;
+
+height:40px;
+
+background:gold;
+
+border-radius:50%;
+
+position:absolute;
+
+right:500px;
+
+bottom:180px;
 
 }
 
-@keyframes engel{
+#portal{
 
-from{
+width:100px;
 
-right:-40px;
+height:180px;
+
+background:purple;
+
+position:absolute;
+
+right:50px;
+
+bottom:0;
 
 }
 
-to{
+#skor{
 
-right:1000px;
+position:absolute;
 
-}
+top:20px;
+
+left:20px;
+
+font-size:35px;
+
+font-weight:bold;
 
 }
