@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
 
 <meta charset="UTF-8">
@@ -19,122 +20,122 @@ font-family:Arial,sans-serif;
 
 body{
 overflow:hidden;
-background:#67c5ff;
+background:#6dcfff;
 touch-action:none;
 }
 
-#gameContainer{
-width:100vw;
-height:100vh;
-position:relative;
-overflow:hidden;
-}
-
 #menu{
-position:absolute;
-top:0;
-left:0;
+position:fixed;
 width:100%;
 height:100%;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-gap:20px;
-background:linear-gradient(180deg,#5ac8ff,#2d79ff);
+gap:25px;
+background:linear-gradient(180deg,#56c8ff,#2d79ff);
 z-index:100;
 }
 
 #menu h1{
-font-size:40px;
 color:white;
+font-size:38px;
 }
 
-.characterBox{
+.characterArea{
 display:flex;
-gap:20px;
+gap:25px;
 }
 
 .character{
-width:120px;
-height:150px;
+width:130px;
+height:170px;
 background:white;
 border-radius:20px;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
-font-size:30px;
+font-size:42px;
 cursor:pointer;
+font-weight:bold;
 }
 
-.character.selected{
-border:6px solid gold;
+.selected{
+border:5px solid gold;
 }
 
-button{
+#menu button{
+padding:16px 35px;
+font-size:20px;
 border:none;
-padding:15px 30px;
-font-size:18px;
-border-radius:15px;
-cursor:pointer;
+border-radius:20px;
 }
 
 #hud{
-position:absolute;
+position:fixed;
 top:10px;
 left:10px;
-z-index:10;
 display:none;
-gap:15px;
+gap:10px;
 flex-wrap:wrap;
+z-index:20;
 }
 
-.hudBox{
-background:rgba(255,255,255,.85);
+.box{
+background:white;
 padding:10px 15px;
 border-radius:15px;
 font-size:18px;
 }
 
 #nightBtn{
-position:absolute;
+position:fixed;
 top:10px;
 right:10px;
-z-index:10;
+width:60px;
+height:60px;
+font-size:25px;
+border:none;
+border-radius:50%;
 display:none;
+z-index:20;
 }
 
 #restartBtn{
-position:absolute;
-bottom:20px;
-right:20px;
-z-index:10;
+position:fixed;
+top:80px;
+right:10px;
+width:60px;
+height:60px;
+font-size:25px;
+border:none;
+border-radius:50%;
 display:none;
+z-index:20;
 }
 
 #game{
-width:100%;
-height:100%;
+width:100vw;
+height:100vh;
 position:relative;
 overflow:hidden;
 }
 
 #sky{
-position:absolute;
 width:100%;
 height:100%;
-background:#7ed8ff;
+background:#79d6ff;
+position:absolute;
 transition:.4s;
 }
 
 #player{
+position:absolute;
+left:80px;
+bottom:110px;
 width:70px;
 height:90px;
-position:absolute;
-bottom:110px;
-left:80px;
-border-radius:20px;
 display:none;
 justify-content:center;
 align-items:center;
@@ -142,64 +143,36 @@ font-size:45px;
 z-index:5;
 }
 
-.ground{
+#ground{
 position:absolute;
 bottom:0;
 width:100%;
 height:100px;
-background:#3fb64f;
-}
-
-.obstacle{
-position:absolute;
-bottom:100px;
-width:50px;
-height:50px;
-font-size:45px;
-}
-
-.coin{
-position:absolute;
-bottom:200px;
-font-size:35px;
-}
-
-.tree{
-position:absolute;
-bottom:100px;
-font-size:70px;
-}
-
-.cloud{
-position:absolute;
-top:50px;
-font-size:60px;
-}
-
-#finish{
-position:absolute;
-bottom:100px;
-font-size:80px;
-display:none;
+background:#43b74d;
 }
 
 #controls{
-position:absolute;
+position:fixed;
 bottom:20px;
-left:20px;
+right:20px;
 display:none;
-z-index:10;
+z-index:20;
 }
 
 #jumpBtn{
-width:90px;
-height:90px;
+width:95px;
+height:95px;
+border:none;
 border-radius:50%;
-font-size:30px;
+font-size:35px;
 }
 
-.gameOver{
+.object{
 position:absolute;
+}
+
+#gameOver{
+position:fixed;
 top:50%;
 left:50%;
 transform:translate(-50%,-50%);
@@ -207,42 +180,61 @@ background:white;
 padding:30px;
 border-radius:20px;
 display:none;
-z-index:20;
+z-index:50;
 text-align:center;
 }
 
+#gameOver button{
+padding:12px 20px;
+border:none;
+border-radius:15px;
+margin-top:15px;
+}
+
+@media(max-width:700px){
+
+.character{
+width:110px;
+height:150px;
+}
+
+#menu h1{
+font-size:28px;
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
-
-<div id="gameContainer">
 
 <div id="menu">
 
 <h1>🏃 Parkur Oyunu</h1>
 
-<div class="characterBox">
+<div class="characterArea">
 
-<div class="character" onclick="selectCharacter('😎')">
+<div class="character" data-icon="😎">
 
 😎
 
-<p>Berat</p>
+Berat
 
 </div>
 
-<div class="character" onclick="selectCharacter('🧢')">
+<div class="character" data-icon="🧢">
 
 🧢
 
-<p>Ali</p>
+Ali
 
 </div>
 
 </div>
 
-<button onclick="startGame()">
+<button id="startBtn">
 
 Başlat
 
@@ -252,21 +244,33 @@ Başlat
 
 <div id="hud">
 
-<div class="hudBox" id="life">❤️❤️❤️</div>
+<div class="box" id="life">
 
-<div class="hudBox" id="score">🏁 0</div>
-
-<div class="hudBox" id="coinCount">🪙 0</div>
+❤️❤️❤️
 
 </div>
 
-<button id="nightBtn" onclick="toggleNight()">
+<div class="box" id="score">
+
+🏁 0
+
+</div>
+
+<div class="box" id="coins">
+
+🪙 0
+
+</div>
+
+</div>
+
+<button id="nightBtn">
 
 🌙
 
 </button>
 
-<button id="restartBtn" onclick="location.reload()">
+<button id="restartBtn">
 
 🔄
 
@@ -276,11 +280,9 @@ Başlat
 
 <div id="sky"></div>
 
-<div class="ground"></div>
+<div id="ground"></div>
 
 <div id="player"></div>
-
-<div id="finish">🏁</div>
 
 </div>
 
@@ -294,11 +296,9 @@ Başlat
 
 </div>
 
-<div class="gameOver" id="gameOver">
+<div id="gameOver">
 
-<h2>Bitti</h2>
-
-<p id="finalScore"></p>
+<h2 id="resultText"></h2>
 
 <button onclick="location.reload()">
 
@@ -308,102 +308,117 @@ Tekrar Oyna
 
 </div>
 
-</div>
-
 <script>
 
-let selectedCharacter="";
-
-let player=document.getElementById("player");
-
-let game=document.getElementById("game");
+let selected="";
 
 let score=0;
 
-let coins=0;
+let coin=0;
 
-let lives=3;
-
-let gameRunning=false;
-
-let jumping=false;
-
-let position=110;
-
-let night=false;
+let life=3;
 
 let speed=6;
 
-function selectCharacter(icon){
+let running=false;
 
-selectedCharacter=icon;
+let night=false;
+
+let jumpState=false;
+
+let playerY=110;
+
+const player=document.getElementById("player");
+
+const game=document.getElementById("game");
 
 document.querySelectorAll(".character")
-.forEach(c=>c.classList.remove("selected"));
 
-event.currentTarget.classList.add("selected");
+.forEach(el=>{
 
-}
+el.onclick=()=>{
 
-function startGame(){
+document.querySelectorAll(".character")
 
-if(selectedCharacter=="") return;
+.forEach(a=>{
 
-document.getElementById("menu").style.display="none";
+a.classList.remove("selected");
 
-document.getElementById("hud").style.display="flex";
+});
 
-document.getElementById("nightBtn").style.display="block";
+el.classList.add("selected");
 
-document.getElementById("restartBtn").style.display="block";
+selected=el.dataset.icon;
 
-document.getElementById("controls").style.display="block";
+};
+
+});
+
+document.getElementById("startBtn")
+
+.onclick=()=>{
+
+if(selected=="") return;
+
+running=true;
+
+document.getElementById("menu")
+
+.style.display="none";
+
+document.getElementById("hud")
+
+.style.display="flex";
+
+document.getElementById("controls")
+
+.style.display="block";
+
+document.getElementById("nightBtn")
+
+.style.display="block";
+
+document.getElementById("restartBtn")
+
+.style.display="block";
 
 player.style.display="flex";
 
-player.innerHTML=selectedCharacter;
+player.innerHTML=selected;
 
-gameRunning=true;
+startLoop();
 
-spawnLoop();
-
-gameLoop();
-
-}
+};
 
 function jump(){
 
-if(jumping) return;
+if(jumpState) return;
 
-jumping=true;
+jumpState=true;
 
-let audio=new Audio(
-'data:audio/wav;base64,UklGRjQAAABXQVZFZm10'
-);
-
-audio.play();
+navigator.vibrate?.(50);
 
 let up=setInterval(()=>{
 
-position+=10;
+playerY+=10;
 
-player.style.bottom=position+"px";
+player.style.bottom=playerY+"px";
 
-if(position>=250){
+if(playerY>=250){
 
 clearInterval(up);
 
 let down=setInterval(()=>{
 
-position-=10;
+playerY-=10;
 
-player.style.bottom=position+"px";
+player.style.bottom=playerY+"px";
 
-if(position<=110){
+if(playerY<=110){
 
-position=110;
+playerY=110;
 
-jumping=false;
+jumpState=false;
 
 clearInterval(down);
 
@@ -418,222 +433,139 @@ clearInterval(down);
 }
 
 document.getElementById("jumpBtn")
-.addEventListener("click",jump);
+
+.onclick=jump;
 
 document.addEventListener("keydown",e=>{
 
-if(e.code=="Space") jump();
+if(e.code==="Space"){
+
+jump();
+
+}
 
 });
 
-function toggleNight(){
+document.getElementById("restartBtn")
+
+.onclick=()=>{
+
+location.reload();
+
+};
+
+document.getElementById("nightBtn")
+
+.onclick=()=>{
 
 night=!night;
 
 document.getElementById("sky")
+
 .style.background=
 
 night
 
 ?
 
-"#101820"
+"#0f172a"
 
 :
 
-"#7ed8ff";
+"#79d6ff";
 
-}
+};
 function updateHud(){
 
 document.getElementById("score")
+
 .innerHTML="🏁 "+score;
 
-document.getElementById("coinCount")
-.innerHTML="🪙 "+coins;
+document.getElementById("coins")
 
-let hearts="";
-
-for(let i=0;i<lives;i++){
-
-hearts+="❤️";
-
-}
+.innerHTML="🪙 "+coin;
 
 document.getElementById("life")
-.innerHTML=hearts;
+
+.innerHTML="❤️".repeat(life);
 
 }
 
 function loseLife(){
 
-if(!gameRunning) return;
-
-lives--;
+life--;
 
 updateHud();
 
-if(lives<=0){
+if(life<=0){
 
-gameOver();
-
-}
+finishGame(false);
 
 }
 
-function gameOver(){
+}
 
-gameRunning=false;
+function finishGame(win){
+
+running=false;
 
 document.getElementById("gameOver")
+
 .style.display="block";
 
-document.getElementById("finalScore")
+document.getElementById("resultText")
+
 .innerHTML=
 
-"Skor: "+score+
+win
 
-"<br>Coin: "+coins;
-
-}
-
-function gameWin(){
-
-gameRunning=false;
-
-document.getElementById("gameOver")
-.style.display="block";
-
-document.getElementById("finalScore")
-.innerHTML=
+?
 
 "🎉 Kazandın"
 
-+"<br>Coin: "+coins;
+:
+
+"😵 Oyun Bitti";
 
 }
 
-function spawnObstacle(){
+function createObject(icon,className,bottom){
 
-if(!gameRunning) return;
+let obj=document.createElement("div");
 
-let rock=document.createElement("div");
+obj.className="object "+className;
 
-rock.className="obstacle";
+obj.innerHTML=icon;
 
-rock.innerHTML="🪨";
+obj.style.left=window.innerWidth+"px";
 
-rock.style.left="100vw";
+obj.style.bottom=bottom+"px";
 
-game.appendChild(rock);
+obj.style.fontSize=
 
-moveObject(rock,true);
+className==="cloud"
 
-}
+?
 
-function spawnCoin(){
+"60px"
 
-if(!gameRunning) return;
+:
 
-let coin=document.createElement("div");
+"50px";
 
-coin.className="coin";
+game.appendChild(obj);
 
-coin.innerHTML="🪙";
-
-coin.style.left="100vw";
-
-coin.style.bottom=
-
-(150+Math.random()*150)
-
-+"px";
-
-game.appendChild(coin);
-
-moveObject(coin,false);
+moveObject(obj,className);
 
 }
 
-function spawnTree(){
-
-if(!gameRunning) return;
-
-let tree=document.createElement("div");
-
-tree.className="tree";
-
-tree.innerHTML="🌳";
-
-tree.style.left="100vw";
-
-game.appendChild(tree);
-
-moveDecoration(tree);
-
-}
-
-function spawnCloud(){
-
-if(!gameRunning) return;
-
-let cloud=document.createElement("div");
-
-cloud.className="cloud";
-
-cloud.innerHTML="☁️";
-
-cloud.style.left="100vw";
-
-cloud.style.top=
-
-(20+Math.random()*120)
-
-+"px";
-
-game.appendChild(cloud);
-
-moveDecoration(cloud);
-
-}
-
-function moveDecoration(el){
+function moveObject(obj,type){
 
 let left=window.innerWidth;
 
 let move=setInterval(()=>{
 
-if(!gameRunning){
-
-clearInterval(move);
-
-return;
-
-}
-
-left-=2;
-
-el.style.left=left+"px";
-
-if(left<-150){
-
-el.remove();
-
-clearInterval(move);
-
-}
-
-},20);
-
-}
-
-function moveObject(el,isObstacle){
-
-let left=window.innerWidth;
-
-let move=setInterval(()=>{
-
-if(!gameRunning){
+if(!running){
 
 clearInterval(move);
 
@@ -643,45 +575,47 @@ return;
 
 left-=speed;
 
-el.style.left=left+"px";
-
-let playerRect=
-
-player.getBoundingClientRect();
-
-let objRect=
-
-el.getBoundingClientRect();
+obj.style.left=left+"px";
 
 if(
 
-playerRect.left<objRect.right &&
+type==="rock"
 
-playerRect.right>objRect.left &&
+||
 
-playerRect.top<objRect.bottom &&
-
-playerRect.bottom>objRect.top
+type==="coin"
 
 ){
 
-if(isObstacle){
+let p=player.getBoundingClientRect();
+
+let o=obj.getBoundingClientRect();
+
+let hit=
+
+p.left<o.right &&
+
+p.right>o.left &&
+
+p.top<o.bottom &&
+
+p.bottom>o.top;
+
+if(hit){
+
+if(type==="rock"){
 
 loseLife();
 
-el.remove();
+}
 
-clearInterval(move);
+if(type==="coin"){
 
-return;
+coin++;
 
 }
 
-else{
-
-coins++;
-
-el.remove();
+obj.remove();
 
 clearInterval(move);
 
@@ -695,7 +629,7 @@ return;
 
 if(left<-100){
 
-el.remove();
+obj.remove();
 
 clearInterval(move);
 
@@ -705,83 +639,137 @@ clearInterval(move);
 
 }
 
-function spawnLoop(){
+function startLoop(){
+
+updateHud();
 
 setInterval(()=>{
 
-if(!gameRunning) return;
-
-spawnObstacle();
-
-},1800);
-
-setInterval(()=>{
-
-if(!gameRunning) return;
-
-spawnCoin();
-
-},1400);
-
-setInterval(()=>{
-
-if(!gameRunning) return;
-
-spawnTree();
-
-},2500);
-
-setInterval(()=>{
-
-if(!gameRunning) return;
-
-spawnCloud();
-
-},3500);
-
-}
-
-function gameLoop(){
-
-let loop=setInterval(()=>{
-
-if(!gameRunning){
-
-clearInterval(loop);
-
-return;
-
-}
+if(!running) return;
 
 score++;
 
 updateHud();
 
-if(score>=100){
+if(score===100){
 
-let finish=
-
-document.getElementById("finish");
-
-finish.style.display="block";
-
-finish.style.left="80%";
-
-gameWin();
+finishGame(true);
 
 }
 
-if(score%20==0){
+if(score%20===0){
 
-speed+=0.4;
+speed+=0.5;
 
 }
 
 },300);
 
+setInterval(()=>{
+
+if(!running) return;
+
+createObject(
+
+"🪨",
+
+"rock",
+
+"100"
+
+);
+
+},1800);
+
+setInterval(()=>{
+
+if(!running) return;
+
+createObject(
+
+"🪙",
+
+"coin",
+
+150+
+
+Math.random()*120
+
+);
+
+},1500);
+
+setInterval(()=>{
+
+if(!running) return;
+
+createObject(
+
+"🌳",
+
+"tree",
+
+"100"
+
+);
+
+},3500);
+
+setInterval(()=>{
+
+if(!running) return;
+
+let cloud=document.createElement("div");
+
+cloud.className="object cloud";
+
+cloud.innerHTML="☁️";
+
+cloud.style.top=
+
+20+
+
+Math.random()*120
+
++"px";
+
+cloud.style.left=
+
+window.innerWidth+"px";
+
+game.appendChild(cloud);
+
+let left=window.innerWidth;
+
+let move=setInterval(()=>{
+
+if(!running){
+
+clearInterval(move);
+
+return;
+
 }
 
-updateHud();
+left-=2;
+
+cloud.style.left=
+
+left+"px";
+
+if(left<-100){
+
+cloud.remove();
+
+clearInterval(move);
+
+}
+
+},20);
+
+},3000);
+
+}
 
 </script>
 
