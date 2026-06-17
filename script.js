@@ -1,19 +1,30 @@
-let secilen="";
-let zipliyor=false;
-let skor=0;
-let engelHareket;
+let secilen = "";
+let zipliyor = false;
+let skor = 0;
 
 function karakterSec(isim){
 
-secilen=isim;
+secilen = isim;
 
-document.getElementById("yazi").innerText=isim+" seçildi";
+document.getElementById("yazi").innerText = isim + " seçildi";
+
+if(isim==="Berat"){
+
+document.getElementById("karakter").innerHTML="😎";
+
+}
+
+if(isim==="Ali"){
+
+document.getElementById("karakter").innerHTML="🧢";
+
+}
 
 }
 
 function oyunuBaslat(){
 
-if(secilen==""){
+if(secilen===""){
 
 alert("Karakter seç");
 
@@ -35,7 +46,7 @@ let engel=document.getElementById("engel");
 
 let konum=-100;
 
-engelHareket=setInterval(()=>{
+setInterval(()=>{
 
 konum+=8;
 
