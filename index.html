@@ -4,7 +4,7 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Berat & Ali Parkur</title>
 
@@ -12,8 +12,8 @@
 
 body{
 margin:0;
+font-family:Arial,sans-serif;
 overflow:hidden;
-font-family:Arial;
 }
 
 #menu{
@@ -27,8 +27,8 @@ gap:20px;
 }
 
 #menu button{
-padding:18px;
-font-size:22px;
+padding:15px 25px;
+font-size:20px;
 border:none;
 border-radius:15px;
 }
@@ -38,6 +38,7 @@ display:none;
 position:relative;
 height:100vh;
 background:#87ceeb;
+overflow:hidden;
 }
 
 #ust{
@@ -61,13 +62,13 @@ position:absolute;
 left:70px;
 bottom:100px;
 font-size:70px;
-z-index:2;
+z-index:5;
 }
 
 #engel{
 position:absolute;
-bottom:100px;
 right:-100px;
+bottom:100px;
 width:60px;
 height:120px;
 background:red;
@@ -78,8 +79,10 @@ border-radius:10px;
 position:absolute;
 bottom:20px;
 right:20px;
-padding:20px;
+padding:18px;
 font-size:20px;
+border:none;
+border-radius:15px;
 }
 
 #bitis{
@@ -92,6 +95,11 @@ align-items:center;
 gap:20px;
 }
 
+#bitis button{
+padding:18px;
+font-size:20px;
+}
+
 </style>
 
 </head>
@@ -102,11 +110,29 @@ gap:20px;
 
 <h1>BERAT & ALİ PARKUR</h1>
 
-<button onclick="sec('😎')">BERAT</button>
+<button onclick="karakterSec('😎')">
 
-<button onclick="sec('🧢')">ALİ</button>
+BERAT
 
-<button onclick="baslat()">OYUNA BAŞLA</button>
+</button>
+
+<button onclick="karakterSec('🧢')">
+
+ALİ
+
+</button>
+
+<div id="secili">
+
+Karakter seç
+
+</div>
+
+<button onclick="oyunuBaslat()">
+
+OYUNA BAŞLA
+
+</button>
 
 </div>
 
@@ -114,11 +140,23 @@ gap:20px;
 
 <div id="ust">
 
-<div id="can">❤️❤️❤️</div>
+<div id="can">
 
-<div id="skor">0</div>
+❤️❤️❤️
 
-<div id="rekor">0</div>
+</div>
+
+<div id="skor">
+
+0
+
+</div>
+
+<div id="rekor">
+
+0
+
+</div>
 
 </div>
 
@@ -130,7 +168,7 @@ gap:20px;
 
 <button id="zipla">
 
-⬆️
+⬆️ Zıpla
 
 </button>
 
@@ -138,7 +176,13 @@ gap:20px;
 
 <div id="bitis">
 
-<h1>OYUN BİTTİ</h1>
+<h1>
+
+OYUN BİTTİ
+
+</h1>
+
+<div id="sonSkor"></div>
 
 <button onclick="location.reload()">
 
@@ -151,26 +195,23 @@ gap:20px;
 <script>
 
 let secilen="";
-
 let skor=0;
-
 let rekor=0;
-
 let can=3;
-
 let zipliyor=false;
+let oyun=null;
 
-let oyun;
-
-function sec(k){
+function karakterSec(k){
 
 secilen=k;
 
+document.getElementById("secili").innerText="Seçildi";
+
 }
 
-function baslat(){
+function oyunuBaslat(){
 
-if(secilen==""){
+if(secilen===""){
 
 alert("Karakter seç");
 
@@ -183,6 +224,12 @@ document.getElementById("karakter").innerHTML=secilen;
 document.getElementById("menu").style.display="none";
 
 document.getElementById("oyun").style.display="block";
+
+if(oyun){
+
+clearInterval(oyun);
+
+}
 
 oyunuCalistir();
 
@@ -198,7 +245,7 @@ let konum=-100;
 
 oyun=setInterval(()=>{
 
-konum+=10;
+konum+=8;
 
 engel.style.right=konum+"px";
 
@@ -226,9 +273,9 @@ let engelX=window.innerWidth-konum;
 
 if(
 
-engelX<150 &&
+engelX<140 &&
 
-engelX>60 &&
+engelX>50 &&
 
 karakterAlt<180
 
@@ -238,25 +285,27 @@ can--;
 
 konum=-100;
 
-if(can==2){
+if(can===2){
 
 document.getElementById("can").innerText="❤️❤️";
 
 }
 
-if(can==1){
+if(can===1){
 
 document.getElementById("can").innerText="❤️";
 
 }
 
-if(can==0){
+if(can===0){
 
 clearInterval(oyun);
 
 document.getElementById("oyun").style.display="none";
 
 document.getElementById("bitis").style.display="flex";
+
+document.getElementById("sonSkor").innerText="Skor: "+skor;
 
 }
 
@@ -293,4 +342,5 @@ zipliyor=false;
 </script>
 
 </body>
+
 </html>
