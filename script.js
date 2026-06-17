@@ -1,24 +1,12 @@
-let secilen = "";
-let zipliyor = false;
-let skor = 0;
+let secilen="";
+let zipliyor=false;
+let skor=0;
 
 function karakterSec(isim){
 
-secilen = isim;
+secilen=isim;
 
-document.getElementById("yazi").innerText = isim + " seçildi";
-
-if(isim==="Berat"){
-
-document.getElementById("karakter").innerHTML="😎";
-
-}
-
-if(isim==="Ali"){
-
-document.getElementById("karakter").innerHTML="🧢";
-
-}
+document.getElementById("yazi").innerText=isim+" seçildi";
 
 }
 
@@ -29,6 +17,18 @@ if(secilen===""){
 alert("Karakter seç");
 
 return;
+
+}
+
+if(secilen==="Berat"){
+
+document.getElementById("karakter").innerHTML="😎";
+
+}
+
+if(secilen==="Ali"){
+
+document.getElementById("karakter").innerHTML="🧢";
 
 }
 
